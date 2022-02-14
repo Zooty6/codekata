@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class Weather {
     public static void main(String[] args) throws IOException {
@@ -15,10 +14,23 @@ public class Weather {
         String[] weatherLines = weatherString.split("\n");
         ArrayList<WeatherData> weatherData = new ArrayList<>();
 
+        for (int i = 2; i < weatherLines.length; i++) {
+            String weatherLine = weatherLines[i];
+            if (!weatherLine.trim().startsWith("mo")) {
+                weatherData.add(new WeatherData(weatherLine));
+            }
+        }
 
-        Optional<Integer> min = weatherData.stream()
-                .map(data -> data.getMaximumTemperature() - data.getMinimumTemperature())
-                .min();
+        WeatherData minimumData = weatherData.stream()
+
+                .min((o1, o2) -> {
+                    Integer one = (o1.getMaximumTemperature() - o1.getMinimumTemperature());
+                    Integer two = o2.getMaximumTemperature() - o2.getMinimumTemperature();
+                    return two.compareTo(one);
+                })
+                .orElse(null);
+
+        System.out.println("minimum temperature day: " + (minimumData != null ? minimumData.getDay() : "null"));
 
 
     }
