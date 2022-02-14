@@ -10,9 +10,9 @@ import static java.lang.Character.isDigit;
 @Data
 @NoArgsConstructor
 public class WeatherData {
-    private int day;
-    private int minimumTemperature;
-    private int maximumTemperature;
+    private Integer day;
+    private Integer minimumTemperature;
+    private Integer maximumTemperature;
     // TODO: rest
 
     public WeatherData(String input) {
