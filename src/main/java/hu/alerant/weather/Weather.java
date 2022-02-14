@@ -22,11 +22,10 @@ public class Weather {
         }
 
         WeatherData minimumData = weatherData.stream()
-
                 .min((o1, o2) -> {
                     Integer one = (o1.getMaximumTemperature() - o1.getMinimumTemperature());
                     Integer two = o2.getMaximumTemperature() - o2.getMinimumTemperature();
-                    return two.compareTo(one);
+                    return one.compareTo(two);
                 })
                 .orElse(null);
 

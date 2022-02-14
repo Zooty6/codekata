@@ -30,7 +30,7 @@ public class WeatherData {
         }
 
         day = Integer.parseInt(units.get(0));
-        minimumTemperature = Integer.parseInt(units.get(1));
-        maximumTemperature = Integer.parseInt(units.get(2));
+        maximumTemperature = Integer.parseInt(units.get(1));
+        minimumTemperature = Integer.parseInt(units.get(2));
     }
 }
