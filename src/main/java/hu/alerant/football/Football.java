@@ -22,7 +22,7 @@ public class Football {
         InputStream contentStream = classLoader.getResourceAsStream("football.dat");
 
         if (contentStream == null) {
-            throw new NullPointerException("weather data file is missing");
+            throw new NullPointerException("football data file is missing");
         }
 
         String fileContent = new String(contentStream.readAllBytes(), StandardCharsets.UTF_8);
@@ -39,8 +39,7 @@ public class Football {
                 .map(FootballData::new)
                 .min(Football::compareByFAndA)
                 .map(FootballData::getTeamName)
-                .orElse(null);
-
+                .orElseThrow(Football::throwDataParseError);
     }
 
     private static int compareByFAndA(FootballData data1, FootballData data2) {
@@ -50,6 +49,10 @@ public class Football {
     }
 
     private static boolean filterDataLines(String s) {
-        return s.trim().startsWith("-");
+        return !s.trim().startsWith("-");
+    }
+
+    private static IllegalArgumentException throwDataParseError() {
+        return new IllegalArgumentException("Parsing data file failed");
     }
 }
