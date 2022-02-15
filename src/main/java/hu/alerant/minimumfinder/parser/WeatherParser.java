@@ -1,4 +1,4 @@
-package hu.alerant.minimumfinder;
+package hu.alerant.minimumfinder.parser;
 
 import hu.alerant.minimumfinder.model.WeatherData;
 
@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 import static java.lang.Character.isDigit;
 
-public class WeatherParser {
+public class WeatherParser implements Parser<WeatherData> {
+    @Override
     public WeatherData parse(String record) {
         StringBuilder unit = new StringBuilder();
         ArrayList<String> units = new ArrayList<>();
@@ -28,7 +29,7 @@ public class WeatherParser {
         return new WeatherData(day, minimumTemperature, maximumTemperature);
     }
 
-    public boolean isValidData(String line) {
+    public boolean isValidLine(String line) {
         return !line.trim().isEmpty() && isDigit(line.trim().charAt(0));
     }
 }

@@ -1,4 +1,4 @@
-package hu.alerant.minimumfinder;
+package hu.alerant.minimumfinder.parser;
 
 import hu.alerant.minimumfinder.model.FootballData;
 import lombok.AllArgsConstructor;
@@ -6,8 +6,9 @@ import lombok.Getter;
 
 import static java.lang.Character.isDigit;
 
-public class FootballParser {
+public class FootballParser implements Parser<FootballData> {
 
+    @Override
     public FootballData parse(String record) {
         String name = parseName(record);
         FAPackage fa = parseFAndA(record);
@@ -15,7 +16,8 @@ public class FootballParser {
         return new FootballData(fa.f, fa.a, name);
     }
 
-    public boolean isValidData(String line) {
+    @Override
+    public boolean isValidLine(String line) {
         return !line.trim().isEmpty() && isDigit(line.trim().charAt(0));
     }
 
